@@ -1,0 +1,55 @@
+{
+  "name": "grahambutler.com",
+  "version": "1.0.0",
+  "description": "Marketing site for Music Services",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbdrummer/grahambutler.com.git"
+  },
+  "author": {
+    "name": "Graham Butler",
+    "email": "graham@grahambutler.com"
+  },
+  "devDependencies": {
+    "chalk": "^1.1.3",
+    "chassis-detailer": "^1.4.4",
+    "chassis-sass": "0.0.36",
+    "fs-extra": "^0.30.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-depalert": "^1.0.0",
+    "gulp-header": "^1.8.8",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-util": "^3.0.7",
+    "ngn-sse": "0.0.3",
+    "rimraf": "^2.5.4",
+    "shortbus": "^1.1.0"
+  },
+  "standard": {
+    "ignore": [
+      "_*",
+      "_**/*",
+      "gulpfile.js"
+    ],
+    "globals": [
+      "window",
+      "EventEmitter",
+      "CustomException",
+      "DOMParser",
+      "XMLHttpRequest",
+      "FormData",
+      "btoa",
+      "localStorage",
+      "Network"
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "instafeed.js": "^1.4.1"
+  }
+}

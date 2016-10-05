@@ -1,0 +1,6 @@
+// NGN Chassis Detailer
+// z-index utils
+
+@function detailer-get-z-index($key) {
+  @return chassis-get-z-index(max) - index($z-index-order, $key);
+}

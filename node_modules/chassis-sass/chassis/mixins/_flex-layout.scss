@@ -1,0 +1,105 @@
+// NGN Chassis
+// Flex Layout mixins
+
+// :: Layout container
+// For general page layout
+// For individual components or pieces of a layout, use flexboxes instead
+
+// To use:
+// include mixin 'layout' or placeholder '%layout' on your parent container
+
+// Column height: equal or collapse (to content-height)
+// Vertical Alignment applies to unequal height columns
+// Gutter width determines how much gutter wil appear between layout-cells
+@mixin layout($gutter-width: 1em, $column-height: equal, $vertical-alignment: top) {
+
+  display: flex;
+	flex-direction: row;
+
+	& > * {
+		margin: {
+			top: 0;
+			right: ($gutter-width / 2);
+			left: ($gutter-width / 2);
+		}
+
+		&:first-child {
+			margin-left: 0;
+		}
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	@if $column-height == equal {
+    align-items: initial;
+	} @else if $column-height == collapse {
+		@if $vertical-alignment == top {
+			align-items: flex-start;
+		} @else if $vertical-alignment == bottom {
+      align-items: flex-end;
+		} @else if $vertical-alignment == center {
+			align-items: center;
+		} @else {
+			@warn "`#{$vertical-alignment}` is not a valid alignment value.";
+		}
+	} @else {
+		@warn "`#{$column-height}` is not a valid layout column height parameter.";
+	}
+
+	@content;
+}
+
+// Placeholder helps avoid repetition of code, use wisely.
+%layout { @include layout; }
+
+// :: Customize Layout Cell
+// Use on individual cells inside a layout container to customize their properties
+
+// Cell widths: one-quarter, one-third, half, full, or custom (percentage)
+
+// Default gutters: 1em (.5em per side)
+
+@mixin layout-cell($width: default, $display-order: inherit, $gutter-width: 1em) {
+
+  &:not(:first-child) {
+    margin: {
+      left: ($gutter-width / 2);
+      right: ($gutter-width / 2);
+    }
+  }
+
+  &:first-child {
+    margin: {
+      left: 0;
+      right: ($gutter-width / 2);
+    }
+  }
+
+  &:last-child {
+    margin: {
+      left: ($gutter-width / 2);
+      right: 0;
+    }
+  }
+
+	@if $width == default {
+		flex: 1 1 auto;
+	} @else if $width == one-quarter {
+		flex: 0 0 calc(25% - (#{$gutter-width} * .75));
+	} @else if $width == one-third {
+		flex: 0 0 calc((100 / 3 * 1%) - (#{$gutter-width} * ( 2 / 3 )));
+	} @else if $width == half {
+		flex: 0 0 calc(50% - (#{$gutter-width} * .5));
+	} @else if $width == full {
+		flex: 1 0 100%;
+		margin-left: 0;
+		margin-right: 0;
+	} @else {
+		flex: 0 0 $width;
+	}
+
+	order: $display-order;
+
+	@content;
+}

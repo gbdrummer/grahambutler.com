@@ -1,0 +1,9 @@
+svg.icon {
+  width: $icon-size-multiplier * 1em;
+  height: auto;
+  vertical-align: middle;
+
+  fill: $icon-color;
+  // Without this, svgs inside <a> tags will block click events in IE
+	pointer-events: none;
+}

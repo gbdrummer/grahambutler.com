@@ -1,0 +1,34 @@
+// NGN Chassis
+// Math Functions
+
+// :: Exponents
+@function exponent($base, $exponent) {
+  $value: $base;
+
+  @if $exponent > 1 {
+    @for $i from 2 through $exponent {
+      $value: $value * $base;
+    }
+  }
+
+  @if $exponent < 1 {
+    @for $i from 0 through -$exponent {
+      $value: $value / $base;
+    }
+  }
+
+  @return $value;
+}
+
+// Square Root
+@function square-root($number) {
+  @if $number < 0 {
+    @warn "Argument for `square-root()` must be a positive number!";
+    @return null;
+  }
+  $value: 1;
+  @for $i from 1 through 24 {
+    $value: $value - (exponent($value, 2) - $number) / (2 * $value);
+  }
+  @return $value;
+}

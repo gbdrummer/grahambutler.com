@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Graham Butler | Music Producer</title>
+    <script src="https://cdn.author.io/ngn/latest/chassis.slim.min.js"></script>
+    <!-- LIVERELOAD -->
+		<script src="https://cdn.jsdelivr.net/webcomponentsjs/latest/webcomponents.min.js"></script>
+		<script src="https://cdn.author.io/chassis/components/latest/chassis-cycle.min.js"></script>
+		<script src="https://cdn.author.io/chassis/components/latest/chassis-overlay.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Oswald|Roboto+Slab:700" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+  </head>
+
+  <body class="ngn chassis gb-site">
+
+    <section class="banner width-constraint">
+      <header>
+        <div class="title">
+          <h1>Graham Butler</h1>
+          <h2>Music Producer &amp; Engineer</h2>
+        </div>
+        `<!-- <nav>
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </nav> -->`
+      </header>
+      <section class="blurb">
+        <p class="compute-line-height">
+          I’m a music producer, engineer and mixer from Los Angeles, CA. I spend my days finding out what makes music tick, click and stick.
+        </p>
+      </section>
+    </section>
+
+    <main>
+
+
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script>
+      (function() {
+        // hide body to prevent FOUC
+        // document.body.classList.add('hidden');
+        // window.addEventListener('WebComponentsReady', function() {
+        //   // Show body when everything is ready. Delay by a few ms to assure
+        //   // the custom element is loaded. This is a hack to get around the
+        //   // requirement of a polyfill in some web browsers that don't natively
+        //   // support web components yet.
+        //   setTimeout(function () {
+        //     document.body.classList.remove('hidden');
+        //   }, 100)
+        // });
+
+        var computedLineHeightContainers = document.querySelectorAll('.compute-line-height');
+
+        setLineHeight(computedLineHeightContainers);
+
+        window.addEventListener('resize', function() {
+          setLineHeight(computedLineHeightContainers);
+        });
+
+        function setLineHeight(containers) {
+          for ( var i = 0; i < containers.length; i++ ) {
+            containers[i].style.lineHeight = calculateLineHeight(containers[i].clientWidth) + 'em';
+          }
+        }
+
+        function calculateLineHeight(lineWidth) {
+          var gr = 1.61803398875;
+
+          var optimalLine = getOptimalLineDimensions(16, gr);
+
+          return (
+            gr - ( ( 1 / ( 2 * gr ) ) * ( 1 - ( lineWidth / optimalLine.width ) ) )
+          );
+        }
+
+        function getOptimalLineDimensions(fontSize, ratio) {
+          return {
+            height: fontSize * ratio,
+            width: Math.pow( (fontSize * ratio), 2 )
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

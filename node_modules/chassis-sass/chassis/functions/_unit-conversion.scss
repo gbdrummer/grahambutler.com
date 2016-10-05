@@ -1,0 +1,21 @@
+// Chassis Unit Conversion Functions
+
+// Strip Units
+@function strip-units($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@function px-to-em($new-value, $base: $typography-base) {
+	@if $base == 0 { @return 0 }
+	@return $new-value / $base * 1em;
+}
+
+@function px-to-rem($new-value, $base: $typography-base) {
+	@if $base == 0 { @return 0 }
+	@return $new-value / $base * 1rem;
+}
+
+@function rem-to-px($new-value, $base: $typography-base) {
+  @if $base == 0 { @return 0 }
+  @return ( strip-units($new-value) * $base );
+}

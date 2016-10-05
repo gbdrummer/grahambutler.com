@@ -1,0 +1,1044 @@
+@charset "UTF-8";
+/** @function chassis-get-z-index
+ * @param {string} $key
+ * Name of element from $CHASSIS_Z-INDEX_DEFAULTS map
+ * found in chassis-sass ./config/z-index
+ */
+/*
+
+Viewport Width-specific styles can be applied in 5 different ways:
+
+  1. Targeting all Viewport Width Ranges below the specified range:
+
+    ```SASS
+    @include below-viewport-width(medium) {
+      -- your styles --
+    }
+    ```
+
+    This will target viewport widths below, but not including, the lower bound
+    of the "medium" Viewport Width Range
+
+    By default, the above code would affect viewports 0px - 767px wide:
+    ✓ below minimum UI
+    ✓ tiny
+    ✓ small
+    ✘ medium
+    ✘ large
+    ✘ huge
+    ✘ above maximum UI width
+
+ 2. Targeting all Viewport Width Ranges up to, and including, the specified range:
+
+    ```SASS
+    @include max-viewport-width(medium) {
+      -- your styles --
+    }
+    ```
+
+    This will target viewport widths below, but not including, the upper bound
+    of the "medium" Viewport Width Range
+
+    By default, the above code would affect viewports 0px - 1023px wide:
+    ✓ below minimum UI width
+    ✓ tiny
+    ✓ small
+    ✓ medium
+    ✘ large
+    ✘ huge
+    ✘ above maximum UI width
+
+ 3. Targeting a viewport-width range directly:
+
+    ```SASS
+    @include at-viewport-width(medium) {
+      -- your styles --
+    }
+    ```
+
+    This will target viewport widths at or above the lower bound, and below (but
+    not including) the upper bound of the "medium" Viewport Width Range
+
+    By default, the above code would affect viewports 768px - 1023px wide:
+    ✘ below minimum UI
+    ✘ tiny
+    ✘ small
+    ✓ medium
+    ✘ large
+    ✘ huge
+    ✘ above maximum UI width
+
+ 4. Targeting all Viewport Width Ranges starting with the specified range and up:
+
+    ```SASS
+    @include min-viewport-width(medium) {
+      -- your styles --
+    }
+    ```
+
+    This will target viewport widths at or above the lower bound of the
+    "medium" Viewport Width Range
+
+    By default, the above code would affect viewports 768px - infinite wide:
+    ✘ below minimum UI
+    ✘ tiny
+    ✘ small
+    ✓ medium
+    ✓ large
+    ✓ huge
+    ✓ above maximum UI width
+
+ 5. Targeting all Viewport Width Ranges above, but not including, the specified
+    range:
+
+    ```SASS
+    @include above-viewport-width(medium) {
+      -- your styles --
+    }
+    ```
+
+    This will target viewport widths above the upper bound of the "medium"
+    Viewport Width Range
+
+    By default, the above code would affect viewports 1025px - infinite wide:
+    ✘ below minimum UI
+    ✘ tiny
+    ✘ small
+    ✘ medium
+    ✓ large
+    ✓ huge
+    ✓ above maximum UI width
+
+*/
+/**
+ * @mixin below-viewport-width()
+ * Apply styling only at viewport widths below, but not including, the lower
+ * bound of the specified range
+ * @param {map-key} $specified-range
+ * from ./config/breakpoints or custom theme file
+ */
+/**
+ * @mixin max-viewport-width()
+ * Apply styling only at viewport widths below, but not including, the upper
+ * bound of the specified range
+ * @param {map-key} $specified-range
+ * from ./config/breakpoints or custom theme file
+ */
+/**
+ * @mixin at-viewport-width()
+ * Apply styling only at viewport widths at or above the lower bound
+ * and below, but not including, the upper bound of the specified range
+ * @param {map-key} $specified-range
+ * from ./config/breakpoints or custom theme file
+ */
+/** @mixin min-viewport-width()
+ * Apply styling only at viewport widths at or above the lower bound of the
+ * specified range
+ * @param {map-key} $specified-range
+ * from ./config/breakpoints or custom theme file
+ */
+/**
+ * @mixin above-viewport-width()
+ * Apply styling only at viewport widths above the upper bound of the
+ * specified range
+ * @param {map-key} $specified-range
+ * from ./config/breakpoints or custom theme file
+ */
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,700';
+.chassis .button,
+.chassis a.button,
+.chassis button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none; }
+
+.chassis a.disabled, .chassis .disabled.button,
+.chassis button.disabled {
+  pointer-events: none; }
+
+/**
+ * @function get-optimal-line-dimensions
+ * Return optimized line-height and width based on font-size and type-scale-ratio
+ * @param {px} $font-size
+ * @param {int} $ratio
+ * Type scale ratio
+ */
+/**
+ * @function calculate-line-height
+ * Returns adjusted line-height for a particular font-size and viewport-width-range
+ * @param {px} $font-size
+ * @param {px} $upper-bound
+ * viewport-width-range upper bound
+ */
+/**
+ * @mixin global-typography-rules
+ * Generate default typography rules for standard elements
+ * This mixin is used in the chassis-sass core package to establish typography
+ * rules at each breakpoint
+ * @param {var} $upper-bound
+ * Upper Bound of the current viewport-width-range
+ */
+/**
+ * @mixin font-size
+ * Sets font-size and line-height, and optionally margin-bottom, on an element
+ * based on Golden Ratio Typography rules, in ems
+ * @param {string} $alias
+ * Name of font-size alias (as defined in ./definitions)
+ * @param {int} $multiplier
+ * Integer to multiply calculated property values by
+ * @param {bool} $has-margin
+ * Determines whether or not to add a calculated bottom-margin property
+ */
+/**
+ * @mixin inline-layout-rules
+ * Sets margin, padding, and line-height on inline elements that are not just
+ * plain text, ie buttons, form fields, tags, etc.
+ * Values are calculated in ems using Golden Ratio Typography rules
+ * @param {string} $alias
+ * Default font-size category for this element
+ * @param {bool} $has-padding
+ * Determines whether or not to output padding rules
+ * @param {bool} $has-margin
+ * Determines whether or not to output margin rules
+ * @param {bool} $multi-line
+ * If element displays inline but can contain multiple lines of text within 
+ * itself, like a textarea or contenteditable, set this to true. This will 
+ * ensure correct line-height.
+ * @param {bool} $add-height-rule
+ * Add height rule that matches line-height. Useful in browsers which do not
+ * resize containers in respect to line-height
+ */
+/**
+ * @mixin block-layout-rules
+ * Sets margin, padding, and line-height on block elements
+ * Values are calculated in ems using Golden Ratio Typography rules
+ * @param {bool} $has-padding
+ * Determines whether or not to output padding rules
+ * @param {bool} $has-margin
+ * Determines whether or not to output margin rules
+ */
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img,
+ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure,
+figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+ol,
+ul {
+  list-style: none; }
+
+q,
+blockquote {
+  quotes: none; }
+  q:before, q:after,
+  blockquote:before,
+  blockquote:after {
+    content: "";
+    content: none; }
+
+a img {
+  border: none; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block; }
+
+input,
+textarea,
+button {
+  font-size: inherit; }
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important; }
+
+.width-constraint {
+  width: 100%;
+  min-width: 320px !important;
+  max-width: 1440px !important;
+  margin: 0 auto;
+  padding-left: 6.18vw;
+  padding-right: 6.18vw; }
+  @media screen and (max-width: 320px) {
+    .width-constraint {
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media screen and (min-width: 1440px) {
+    .width-constraint {
+      padding-left: 89px;
+      padding-right: 89px; } }
+
+.chassis {
+  min-width: 320px;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  line-height: 24px; }
+  .chassis h1 {
+    font-size: 1.6em;
+    line-height: 1.41667em;
+    margin-bottom: 0.87555em; }
+  .chassis h2 {
+    font-size: 1.26667em;
+    line-height: 1.16667em;
+    margin-bottom: 0.91079em; }
+  .chassis h3 {
+    font-size: 1em;
+    line-height: 1em;
+    margin-bottom: 0.98885em; }
+  .chassis h4 {
+    font-size: 0.8em;
+    line-height: 0.875em;
+    margin-bottom: 1.08156em; }
+  .chassis h5 {
+    font-size: 0.8em;
+    line-height: 0.875em;
+    margin-bottom: 1.08156em; }
+  .chassis h6 {
+    font-size: 0.8em;
+    line-height: 0.875em;
+    margin-bottom: 1.08156em; }
+  .chassis legend {
+    font-size: 1.26667em;
+    line-height: 1.16667em;
+    margin-bottom: 0.91079em; }
+  .chassis section,
+  .chassis nav,
+  .chassis form {
+    margin-bottom: 2.58885em; }
+  .chassis nav section,
+  .chassis section nav,
+  .chassis nav nav,
+  .chassis article,
+  .chassis fieldset,
+  .chassis figure,
+  .chassis pre,
+  .chassis blockquote,
+  .chassis table,
+  .chassis canvas,
+  .chassis embed {
+    margin-bottom: 1.6em; }
+  .chassis p {
+    margin-bottom: 1em; }
+  @media screen and (min-width: 512px) and (max-width: 767px) {
+    .chassis {
+      font-size: 16px;
+      line-height: 27px; }
+      .chassis h1 {
+        font-size: 1.625em;
+        line-height: 1.40741em; }
+      .chassis h2 {
+        font-size: 1.25em;
+        line-height: 1.14815em; }
+      .chassis h3 {
+        font-size: 1em;
+        line-height: 1em; }
+      .chassis h4 {
+        font-size: 0.8125em;
+        line-height: 0.88889em; }
+      .chassis h5 {
+        font-size: 0.8125em;
+        line-height: 0.88889em; }
+      .chassis h6 {
+        font-size: 0.8125em;
+        line-height: 0.88889em; }
+      .chassis legend {
+        font-size: 1.25em;
+        line-height: 1.14815em; }
+      .chassis section,
+      .chassis nav,
+      .chassis form {
+        margin-bottom: 2.73043em; }
+      .chassis nav section,
+      .chassis section nav,
+      .chassis nav nav,
+      .chassis article,
+      .chassis fieldset,
+      .chassis figure,
+      .chassis pre,
+      .chassis blockquote,
+      .chassis table,
+      .chassis canvas,
+      .chassis embed {
+        margin-bottom: 1.6875em; }
+      .chassis p {
+        margin-bottom: 1em; }
+      .chassis input,
+      .chassis textarea {
+        font-size: 16px; }
+      .chassis textarea {
+        line-height: 27px; } }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .chassis {
+      font-size: 17px;
+      line-height: 29px; }
+      .chassis h1 {
+        font-size: 1.64706em;
+        line-height: 1.41379em; }
+      .chassis h2 {
+        font-size: 1.29412em;
+        line-height: 1.17241em; }
+      .chassis h3 {
+        font-size: 1em;
+        line-height: 1em; }
+      .chassis h4 {
+        font-size: 0.76471em;
+        line-height: 0.89655em; }
+      .chassis h5 {
+        font-size: 0.76471em;
+        line-height: 0.89655em; }
+      .chassis h6 {
+        font-size: 0.76471em;
+        line-height: 0.89655em; }
+      .chassis legend {
+        font-size: 1.29412em;
+        line-height: 1.17241em; }
+      .chassis section,
+      .chassis nav,
+      .chassis form {
+        margin-bottom: 2.76018em; }
+      .chassis nav section,
+      .chassis section nav,
+      .chassis nav nav,
+      .chassis article,
+      .chassis fieldset,
+      .chassis figure,
+      .chassis pre,
+      .chassis blockquote,
+      .chassis table,
+      .chassis canvas,
+      .chassis embed {
+        margin-bottom: 1.70588em; }
+      .chassis p {
+        margin-bottom: 1em; }
+      .chassis input,
+      .chassis textarea {
+        font-size: 17px; }
+      .chassis textarea {
+        line-height: 29px; } }
+  @media screen and (min-width: 1024px) and (max-width: 1199px) {
+    .chassis {
+      font-size: 18px;
+      line-height: 31px; }
+      .chassis h1 {
+        font-size: 1.61111em;
+        line-height: 1.3871em; }
+      .chassis h2 {
+        font-size: 1.27778em;
+        line-height: 1.16129em; }
+      .chassis h3 {
+        font-size: 1em;
+        line-height: 1em; }
+      .chassis h4 {
+        font-size: 0.77778em;
+        line-height: 0.90323em; }
+      .chassis h5 {
+        font-size: 0.77778em;
+        line-height: 0.90323em; }
+      .chassis h6 {
+        font-size: 0.77778em;
+        line-height: 0.90323em; }
+      .chassis legend {
+        font-size: 1.27778em;
+        line-height: 1.16129em; }
+      .chassis section,
+      .chassis nav,
+      .chassis form {
+        margin-bottom: 2.78661em; }
+      .chassis nav section,
+      .chassis section nav,
+      .chassis nav nav,
+      .chassis article,
+      .chassis fieldset,
+      .chassis figure,
+      .chassis pre,
+      .chassis blockquote,
+      .chassis table,
+      .chassis canvas,
+      .chassis embed {
+        margin-bottom: 1.72222em; }
+      .chassis p {
+        margin-bottom: 1em; }
+      .chassis input,
+      .chassis textarea {
+        font-size: 18px; }
+      .chassis textarea {
+        line-height: 31px; } }
+  @media screen and (min-width: 1200px) {
+    .chassis {
+      font-size: 19px;
+      line-height: 34px; }
+      .chassis h1 {
+        font-size: 1.63158em;
+        line-height: 1.35294em; }
+      .chassis h2 {
+        font-size: 1.26316em;
+        line-height: 1.11765em; }
+      .chassis h3 {
+        font-size: 1em;
+        line-height: 1em; }
+      .chassis h4 {
+        font-size: 0.78947em;
+        line-height: 0.91176em; }
+      .chassis h5 {
+        font-size: 0.78947em;
+        line-height: 0.91176em; }
+      .chassis h6 {
+        font-size: 0.78947em;
+        line-height: 0.91176em; }
+      .chassis legend {
+        font-size: 1.26316em;
+        line-height: 1.11765em; }
+      .chassis section,
+      .chassis nav,
+      .chassis form {
+        margin-bottom: 2.89543em; }
+      .chassis nav section,
+      .chassis section nav,
+      .chassis nav nav,
+      .chassis article,
+      .chassis fieldset,
+      .chassis figure,
+      .chassis pre,
+      .chassis blockquote,
+      .chassis table,
+      .chassis canvas,
+      .chassis embed {
+        margin-bottom: 1.78947em; }
+      .chassis p {
+        margin-bottom: 1em; }
+      .chassis input,
+      .chassis textarea {
+        font-size: 19px; }
+      .chassis textarea {
+        line-height: 34px; } }
+
+/**
+ * @mixin chassis-default-rule
+ * Apply CSS property value if it is specified in passed-in component defs map
+ * Otherwise, use default value
+ * @param {string} $property
+ * CSS Property Name
+ * @param {map} $settings
+ * Passed-in component defs map
+ * @param {string} $key
+ * Property key name in $settings map
+ * @param {var or string} $default-value
+ * Default theme fallback value
+ */
+/**
+ * @mixin chassis-pseudo-class-rule
+ * Apply CSS property value to a pseudo-class if it is specified in passed-in 
+ * component defs map, and is different from the default property value
+ * Otherwise, use default value
+ * @param {string} $property
+ * CSS Property Name
+ * @param {map} $default-settings
+ * Passed-in component defs 'default' map
+ * @param {map} $custom-settings
+ * Passed-in component defs pseudo-class map
+ * @param {string} $key
+ * Property key name in $settings map
+ * @param {var or string} $default-value
+ * Default theme fallback value
+ */
+/**
+ * @mixin chassis-generate-box-shadow
+ * Generate box-shadow property from list and apply border-properties
+ * This allows borders to be created using box-shadow instead of border property
+ * @param {map} $defs
+ * Passed-in component defs map
+ * @param {var or string} $default-border-thickness
+ * Detailer default theme border-thickness var or custom string
+ * @param {var or string} $default-border-color
+ * Detailer default theme border-color var or custom string
+ * @param {var or string} $default-box-shadow
+ * Detailer default theme box-shadow var or custom string
+ */
+html {
+  background: white; }
+
+.chassis {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-variant: normal;
+  color: #3c5b5e; }
+  .chassis a {
+    text-decoration: none;
+    text-transform: none;
+    color: #029896; }
+    .chassis a:hover {
+      text-decoration: underline;
+      color: #028e8c; }
+    .chassis a:active {
+      text-decoration: initial;
+      color: #02a2a0; }
+    .chassis a.disabled {
+      text-decoration: initial;
+      color: #4f5166; }
+  .chassis h1 {
+    font-weight: 700;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-decoration: none; }
+  .chassis h2 {
+    font-weight: 700;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-decoration: none; }
+  .chassis h3 {
+    font-weight: 700;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-decoration: none; }
+  .chassis h4 {
+    font-weight: 500;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-decoration: none; }
+  .chassis h5 {
+    font-weight: 500;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-decoration: none; }
+  .chassis h6 {
+    font-weight: 500;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-decoration: none; }
+
+/**
+ * @mixin chassis-button
+ * @param {map} $settings
+ * $settings MUST contain a "default" map
+ */
+.chassis .button,
+.chassis a.button,
+.chassis button {
+  display: inline-block;
+  margin: 0 0.7888em 1.57761em 0;
+  padding: 0 0.7888em;
+  line-height: 2.55263em;
+  background: #bf616a;
+  border-radius: 0.24063em;
+  border: none;
+  outline: none;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  color: white;
+  cursor: pointer; }
+  .chassis .button:visited,
+  .chassis button:visited { }
+  .chassis .button:hover,
+  .chassis button:hover {
+    background: #c36c74; }
+  .chassis .button:active,
+  .chassis button:active {
+    background: #bc5a63; }
+  .chassis .disabled.button,
+  .chassis button.disabled {
+    opacity: 0.382; }
+  .chassis .button:focus,
+  .chassis button:focus {
+    outline: none; }
+
+.chassis form > *:last-child,
+.chassis form fieldset > *:last-child {
+  margin-bottom: 0; }
+
+.chassis form legend {
+  font-weight: 700;
+  font-style: normal;
+  font-variant: normal;
+  text-decoration: none;
+  text-transform: none; }
+
+.chassis form .field {
+  margin: 0 0 1.57761em 0; }
+  .chassis form .field .input {
+    display: flex; }
+    .chassis form .field .input input:not([type='checkbox']):not([type='radio']),
+    .chassis form .field .input textarea {
+      flex: 1 1 auto;
+      width: 0;
+      max-width: 100%;
+      margin-bottom: 0; }
+      .chassis form .field .input input:not([type='checkbox']):not([type='radio']):last-child,
+      .chassis form .field .input textarea:last-child {
+        margin-right: 0; }
+    .chassis form .field .input *::-ms-backdrop,
+    .chassis form .field .input input:not([type='checkbox']):not([type='radio']) {
+      min-height: 2.61803em; }
+    .chassis form .field .input *::-ms-backdrop,
+    .chassis form .field .input textarea {
+      min-height: 7.85409em; }
+    .chassis form .field .input .button {
+      margin-bottom: 0; }
+      .chassis form .field .input .button:last-child {
+        margin-right: 0; }
+    .chassis form .field .input *:last-child {
+      margin-right: 0; }
+    .chassis form .field .input .browser {
+      margin: 0 0.7888em 1.57761em 0;
+      line-height: 2.55263em;
+      display: flex;
+      flex: 1 1 auto;
+      margin-bottom: 0; }
+      .chassis form .field .input .browser:last-child {
+        margin-right: 0; }
+      .chassis form .field .input .browser input:not([type="radio"]):not([type="checkbox"]) {
+        flex: 1 1 auto;
+        margin-right: 0;
+        border-radius: 0; }
+        .chassis form .field .input .browser input:not([type="radio"]):not([type="checkbox"]):first-child {
+          border-radius: 0.24063em 0 0 0.24063em; }
+      .chassis form .field .input .browser .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0 0.24063em 0.24063em 0;
+        background: #dadbdd;
+        color: #3c5b5e;
+        box-shadow: inset -1px 0 0 0 #bcbdc1, inset 0 1px 0 0 #bcbdc1, inset 0 -1px 0 0 #bcbdc1; }
+        .chassis form .field .input .browser .button:visited {
+          background: #dadbdd; }
+        .chassis form .field .input .browser .button:hover {
+          background: #e2e3e4; }
+        .chassis form .field .input .browser .button:active {
+          background: #d5d6d8; }
+
+.chassis form .group {
+  margin: 0 0 1.57761em 0; }
+  .chassis form .group .field {
+    margin-bottom: 0; }
+
+.chassis form .row {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 1.57761em 0; }
+  .chassis form .row > *:last-child {
+    margin-bottom: 0; }
+  .chassis form .row .group {
+    margin: 0 0 1.57761em 0; }
+    .chassis form .row .group:last-child {
+      margin-bottom: 0; }
+    .chassis form .row .group .field {
+      margin-bottom: 0; }
+  @media screen and (min-width: 769px) {
+    .chassis form .row {
+      flex-direction: row; }
+      .chassis form .row .field,
+      .chassis form .row .group {
+        flex: 1 1 50%;
+        margin: 0 1em; }
+        .chassis form .row .field:first-child,
+        .chassis form .row .group:first-child {
+          margin-left: 0; }
+        .chassis form .row .field:last-child,
+        .chassis form .row .group:last-child {
+          margin-right: 0; }
+      .chassis form .row .group {
+        padding: 0.48751em 1em;
+        padding: 0; }
+        .chassis form .row .group .field {
+          margin: 0; } }
+
+.chassis label {
+  display: block;
+  cursor: pointer; }
+
+.chassis input:not([type='checkbox']):not([type='radio']),
+.chassis textarea {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  color: #3c5b5e;
+  border: 0;
+  outline: 0;
+  background: white;
+  border-radius: 0.24063em;
+  box-shadow: inset 0.0236em 0.0618em 0.382em 0.0382em rgba(0, 0, 0, 0.118), inset 0 0 0 1px #bcbdc1; }
+  .chassis input:not([type='checkbox']):not([type='radio']):focus,
+  .chassis textarea:focus {
+    outline: 0;
+    box-shadow: inset 0 0 0 1px #0098e6; }
+
+.chassis input:not([type='checkbox']):not([type='radio']) {
+  margin: 0 0.7888em 1.57761em 0;
+  padding: 0 0.7888em;
+  line-height: 2.55263em; }
+
+.chassis textarea {
+  margin: 0 0.7888em 1.57761em 0;
+  padding: 0.48751em 0.7888em;
+  line-height: 1.57761em;
+  overflow: auto;
+  vertical-align: top;
+  resize: none; }
+
+.chassis input[type="checkbox"] + label,
+.chassis input[type="radio"] + label {
+  display: inline-block; }
+
+.chassis button {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 400; }
+
+@media screen and (max-width: 511px) {
+  .chassis button {
+    display: block;
+    width: 100%; } }
+
+.chassis ::-webkit-file-upload-button {
+  padding: 0;
+  border: 0;
+  background: none; }
+
+.chassis ::-webkit-input-placeholder,
+.chassis :-moz-placeholder,
+.chassis ::-moz-placeholder,
+.chassis :-ms-input-placeholder {
+  color: #a9aaae; }
+
+.chassis select[multiple] {
+  vertical-align: top; }
+
+.chassis .modal {
+  align-self: center;
+  width: 61.8vw;
+  min-width: 320px;
+  max-width: calc(1440px - 12.36vw);
+  max-height: 100vh;
+  overflow: auto;
+  z-index: 999;
+  background: #2b303b; }
+
+.chassis chassis-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  min-width: 100vw;
+  max-width: 100vw;
+  min-height: 100vh;
+  max-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: none;
+  background-blend-mode: normal;
+  z-index: 997; }
+
+.chassis table {
+  table-layout: fixed;
+  margin: 0 0 1.57761em 0;
+  width: 100%;
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0; }
+  .chassis table caption,
+  .chassis table th,
+  .chassis table td {
+    padding: 0.48751em 0.7888em;
+    line-height: 1.57761em;
+    overflow: hidden;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: left;
+    text-overflow: ellipsis; }
+  .chassis table thead {
+    border-bottom: 3px solid #dadbdd; }
+  .chassis table tfoot {
+    border-top: 3px solid #dadbdd; }
+  .chassis table tbody tr td {
+    border-bottom: 1px solid #dadbdd; }
+  .chassis table tbody tr:last-child td {
+    border-bottom: 0; }
+
+/**
+ * @mixin chassis-tag
+ * @param {map} $settings
+ * Map of themable properties
+ * MUST contain a "default" map
+ */
+.chassis .tag {
+  display: inline-block;
+  padding: 0 0.7888em;
+  line-height: 2.55263em;
+  background: #a9aaae;
+  border-radius: 0.24063em;
+  border: none;
+  outline: none;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  color: white; }
+  @media screen and (max-width: 511px) {
+    .chassis .tag {
+      font-size: 12px;
+      line-height: 21px; } }
+  @media screen and (min-width: 512px) and (max-width: 767px) {
+    .chassis .tag {
+      font-size: 13px;
+      line-height: 24px; } }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .chassis .tag {
+      font-size: 13px;
+      line-height: 26px; } }
+  @media screen and (min-width: 1024px) and (max-width: 1199px) {
+    .chassis .tag {
+      font-size: 14px;
+      line-height: 28px; } }
+  @media screen and (min-width: 1200px) {
+    .chassis .tag {
+      font-size: 15px;
+      line-height: 31px; } }
+
+/**
+ * @mixin tiles
+ * @param {int} $columns
+ * Number of columns in grid
+ * @param {px or em} $gutter-width
+ * Amount of space between tiles
+ */
+html {
+  height: 100%; }
+
+.gb-site > .banner {
+  height: 100vh;
+  margin: 0;
+  color: white;
+  background-color: #76fffd;
+  background-image: url("/assets/images/7-recording-studio.jpg");
+  background-blend-mode: darken;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-shadow: inset 0 -61.8vh 38.2vh 0 rgba(160, 146, 44, 0.382), inset 0 -38.2vh 23.6vh 0 rgba(232, 255, 0, 0.118); }
+  .gb-site > .banner header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 23.6vh 0 1.618em; }
+    .gb-site > .banner header .title {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center; }
+      .gb-site > .banner header .title h1 {
+        margin-bottom: 0;
+        font-family: 'Oswald', sans-serif;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: .0236em; }
+        @media screen and (max-width: 511px) {
+          .gb-site > .banner header .title h1 {
+            font-size: 39px;
+            line-height: 53px; } }
+        @media screen and (min-width: 512px) and (max-width: 767px) {
+          .gb-site > .banner header .title h1 {
+            font-size: 42px;
+            line-height: 57px; } }
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+          .gb-site > .banner header .title h1 {
+            font-size: 45px;
+            line-height: 62px; } }
+        @media screen and (min-width: 1024px) and (max-width: 1199px) {
+          .gb-site > .banner header .title h1 {
+            font-size: 47px;
+            line-height: 65px; } }
+        @media screen and (min-width: 1200px) {
+          .gb-site > .banner header .title h1 {
+            font-size: 50px;
+            line-height: 69px; } }
+      .gb-site > .banner header .title h2 {
+        margin: 0;
+        font-family: 'Roboto Slab', serif;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: .118em; }
+        @media screen and (max-width: 511px) {
+          .gb-site > .banner header .title h2 {
+            font-size: 15px;
+            line-height: 24px; } }
+        @media screen and (min-width: 512px) and (max-width: 767px) {
+          .gb-site > .banner header .title h2 {
+            font-size: 16px;
+            line-height: 27px; } }
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+          .gb-site > .banner header .title h2 {
+            font-size: 17px;
+            line-height: 29px; } }
+        @media screen and (min-width: 1024px) and (max-width: 1199px) {
+          .gb-site > .banner header .title h2 {
+            font-size: 18px;
+            line-height: 31px; } }
+        @media screen and (min-width: 1200px) {
+          .gb-site > .banner header .title h2 {
+            font-size: 19px;
+            line-height: 34px; } }
+    .gb-site > .banner header nav {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0; }
+      .gb-site > .banner header nav a {
+        margin: 0 0.7888em 1.57761em 0;
+        padding: 0 0.7888em;
+        line-height: 2.55263em;
+        margin-bottom: 0;
+        color: white;
+        text-transform: uppercase; }
+        .gb-site > .banner header nav a:last-of-type {
+          margin-right: 0; }
+  .gb-site > .banner .blurb {
+    display: flex;
+    justify-content: center; }
+    .gb-site > .banner .blurb p {
+      max-width: 38.2%;
+      font-weight: 300;
+      text-align: center; }

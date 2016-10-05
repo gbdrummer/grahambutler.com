@@ -1,0 +1,11 @@
+// NGN Chassis
+// Default z-index definitions
+// ---------------------------------------------
+
+$CHASSIS_Z-INDEX_DEFAULTS: (
+  min: -1000,
+  behind: -1,
+  default: 1,
+  front: 2,
+  max: 1000
+) !default;
