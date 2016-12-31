@@ -1,0 +1,84 @@
+// NGN Chassis
+// UI Components
+
+// :: Dropdown Menu
+
+$default-toolbar-defs : ();
+
+@if variable-exists(CHASSIS_DETAILER_INCLUDED) and $CHASSIS_DETAILER_INCLUDED {
+
+  // $default-toolbar-defs : (
+  //   bg-color: $overlay-bg-color,
+  //   bg-opacity: $overlay-bg-opacity,
+  //   bg-image: $overlay-bg-image,
+  //   bg-blend-mode: $overlay-bg-blend-mode,
+  //   content-vertical-alignment: $overlay-content-vertical-alignment,
+  //   content-horizontal-alignment: $overlay-content-horizontal-alignment
+  // );
+
+  .chassis .toolbar {
+    @extend %toolbar;
+  }
+
+}
+
+@mixin toolbar-styles($settings) {
+  @if variable-exists(CHASSIS_DETAILER_INCLUDED) and $CHASSIS_DETAILER_INCLUDED {
+    flex: 1 0 auto;
+    display: flex;
+    align-self: baseline;
+    
+    .dropdown-menu {
+      position: relative;
+      
+      flex: 0 1 auto;
+      flex-direction: column;
+      
+      margin-bottom: 0;
+      
+      header {
+        display: flex;
+        align-items: center;
+        
+        @include inline-layout-rules($has-margin: false);
+      }
+      
+      nav,
+      menu,
+      .menu {
+        position: absolute;
+        right: 0;
+        
+        // hide dropdown menus by default
+        @include hide;
+        flex-direction: column;
+        
+        min-width: 100%;
+        @include block-layout-rules($has-margin: false);
+        
+        white-space: nowrap;
+        
+        a {
+          flex: 1 0 auto;
+          align-items: center;
+          display: block;
+        }
+      }
+      
+      &:hover {
+        nav,
+        menu,
+        .menu {
+          position: absolute;
+          height: auto; // TODO: Find out if this is needed
+          
+          @include show(flex);
+        }
+      }
+    }
+  }
+}
+
+%toolbar {
+  @include toolbar-styles($default-toolbar-defs);
+}

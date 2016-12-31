@@ -68,12 +68,8 @@ $default-button-defs : ();
     )
   );
 
-  .chassis {
-    .button,
-    a.button,
-    button {
-      @extend %chassis-button;
-    }
+  .chassis .button {
+    @extend %chassis-button;
   }
 
 }
@@ -149,67 +145,67 @@ $default-button-defs : ();
     @extend %disable-text-selection;
 
     &:visited {
-      @include chassis-pseudo-class-rule(background, $default, $visited, bg-color, $visited-default-button-bg-color);
+      @include chassis-default-rule(background, $visited, bg-color, $visited-default-button-bg-color);
 
       @include chassis-generate-box-shadow($visited, $visited-default-button-border-thickness, $visited-default-button-border-color, $visited-default-button-box-shadow);
 
       font: {
-        @include chassis-pseudo-class-rule(family, $default, $visited, font-family, $visited-default-button-fonts);
-        @include chassis-pseudo-class-rule(weight, $default, $visited, font-weight, $visited-default-button-font-weight);
-        @include chassis-pseudo-class-rule(style, $default, $visited, font-style, $visited-default-button-font-style);
-        @include chassis-pseudo-class-rule(variant, $default, $visited, font-variant, $visited-default-button-font-variant);
+        @include chassis-default-rule(family, $visited, font-family, $visited-default-button-fonts);
+        @include chassis-default-rule(weight, $visited, font-weight, $visited-default-button-font-weight);
+        @include chassis-default-rule(style, $visited, font-style, $visited-default-button-font-style);
+        @include chassis-default-rule(variant, $visited, font-variant, $visited-default-button-font-variant);
       }
 
       text: {
-        @include chassis-pseudo-class-rule(decoration, $default, $visited, text-decoration, $visited-default-button-text-decoration);
-        @include chassis-pseudo-class-rule(transform, $default, $visited, text-transform, $visited-default-button-text-transform);
+        @include chassis-default-rule(decoration, $visited, text-decoration, $visited-default-button-text-decoration);
+        @include chassis-default-rule(transform, $visited, text-transform, $visited-default-button-text-transform);
       }
 
-      @include chassis-pseudo-class-rule(color, $default, $visited, text-color, $visited-default-button-text-color);
+      @include chassis-default-rule(color, $visited, text-color, $visited-default-button-text-color);
     }
 
     &:hover {
-      @include chassis-pseudo-class-rule(background, $default, $hover, bg-color, $hover-default-button-bg-color);
+      @include chassis-default-rule(background, $hover, bg-color, $hover-default-button-bg-color);
 
       @include chassis-generate-box-shadow($hover, $hover-default-button-border-thickness, $hover-default-button-border-color, $hover-default-button-box-shadow);
 
       font: {
-        @include chassis-pseudo-class-rule(family, $default, $hover, font-family, $hover-default-button-fonts);
-        @include chassis-pseudo-class-rule(weight, $default, $hover, font-weight, $hover-default-button-font-weight);
-        @include chassis-pseudo-class-rule(style, $default, $hover, font-style, $hover-default-button-font-style);
-        @include chassis-pseudo-class-rule(variant, $default, $hover, font-variant, $hover-default-button-font-variant);
+        @include chassis-default-rule(family, $hover, font-family, $hover-default-button-fonts);
+        @include chassis-default-rule(weight, $hover, font-weight, $hover-default-button-font-weight);
+        @include chassis-default-rule(style, $hover, font-style, $hover-default-button-font-style);
+        @include chassis-default-rule(variant, $hover, font-variant, $hover-default-button-font-variant);
       }
-
+      
       text: {
-        @include chassis-pseudo-class-rule(decoration, $default, $hover, text-decoration, $hover-default-button-text-decoration);
-        @include chassis-pseudo-class-rule(transform, $default, $hover, text-transform, $hover-default-button-text-transform);
+        @include chassis-default-rule(decoration, $hover, text-decoration, $hover-default-button-text-decoration);
+        @include chassis-default-rule(transform, $hover, text-transform, $hover-default-button-text-transform);
       }
 
-      @include chassis-pseudo-class-rule(color, $default, $hover, text-color, $hover-default-button-text-color);
+      @include chassis-default-rule(color, $hover, text-color, $hover-default-button-text-color);
     }
 
     &:active {
-      @include chassis-pseudo-class-rule(background, $default, $active, bg-color, $active-default-button-bg-color);
+      @include chassis-default-rule(background, $active, bg-color, $active-default-button-bg-color);
 
       @include chassis-generate-box-shadow($active, $active-default-button-border-thickness, $active-default-button-border-color, $active-default-button-box-shadow);
 
       font: {
-        @include chassis-pseudo-class-rule(family, $default, $active, font-family, $active-default-button-fonts);
-        @include chassis-pseudo-class-rule(weight, $default, $active, font-weight, $active-default-button-font-weight);
-        @include chassis-pseudo-class-rule(style, $default, $active, font-style, $active-default-button-font-style);
-        @include chassis-pseudo-class-rule(variant, $default, $active, font-variant, $active-default-button-font-variant);
+        @include chassis-default-rule(family, $active, font-family, $active-default-button-fonts);
+        @include chassis-default-rule(weight, $active, font-weight, $active-default-button-font-weight);
+        @include chassis-default-rule(style, $active, font-style, $active-default-button-font-style);
+        @include chassis-default-rule(variant, $active, font-variant, $active-default-button-font-variant);
       }
 
       text: {
-        @include chassis-pseudo-class-rule(decoration, $default, $active, text-decoration, $active-default-button-text-decoration);
-        @include chassis-pseudo-class-rule(transform, $default, $active, text-transform, $active-default-button-text-transform);
+        @include chassis-default-rule(decoration, $active, text-decoration, $active-default-button-text-decoration);
+        @include chassis-default-rule(transform, $active, text-transform, $active-default-button-text-transform);
       }
 
-      @include chassis-pseudo-class-rule(color, $default, $active, text-color, $active-default-button-text-color);
+      @include chassis-default-rule(color, $active, text-color, $active-default-button-text-color);
     }
 
     &.disabled {
-      @include chassis-pseudo-class-rule(opacity, $default, $disabled, opacity, $disabled-default-button-opacity);
+      @include chassis-default-rule(opacity, $disabled, opacity, $disabled-default-button-opacity);
       @extend %disable-pointer-events;
     }
 

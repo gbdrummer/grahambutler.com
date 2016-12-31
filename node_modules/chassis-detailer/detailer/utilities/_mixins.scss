@@ -25,32 +25,6 @@
 }
 
 /**
- * @mixin chassis-pseudo-class-rule
- * Apply CSS property value to a pseudo-class if it is specified in passed-in 
- * component defs map, and is different from the default property value
- * Otherwise, use default value
- * @param {string} $property
- * CSS Property Name
- * @param {map} $default-settings
- * Passed-in component defs 'default' map
- * @param {map} $custom-settings
- * Passed-in component defs pseudo-class map
- * @param {string} $key
- * Property key name in $settings map
- * @param {var or string} $default-value
- * Default theme fallback value
- */
-@mixin chassis-pseudo-class-rule($property, $default-settings, $custom-settings, $key, $default-value) {
-  @if map-has-key($custom-settings, $key) {
-    @if map-get($custom-settings, $key) != map-get($default-settings, $key) {
-      #{$property}: map-get($custom-settings, $key);
-    }
-  } @else {
-    #{$property}: $default-value;
-  }
-}
-
-/**
  * @mixin chassis-generate-box-shadow
  * Generate box-shadow property from list and apply border-properties
  * This allows borders to be created using box-shadow instead of border property
